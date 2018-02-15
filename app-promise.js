@@ -30,7 +30,7 @@ const argv = yargs
     console.log(response.data.results[0].formatted_address);
     var lat = response.data.results[0].geometry.location.lat;
     var lon = response.data.results[0].geometry.location.lng;
-    var weatherURI = `https://api.darksky.net/forecast/d0252a1f2a6dccb9eff129d0be9227ed/${lat},${lon}`;
+    var weatherURI = `https://api.darksky.net/forecast/(PASTE YOUR DARK WEB API KEY HERE)/${lat},${lon}`;
 
     return axios.get(weatherURI);
 

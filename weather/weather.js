@@ -4,7 +4,7 @@ var getWeather = (latitude, longitude, callback) => {
     var tempCelcius, apparentTempCelcius;
 
     request({
-        url:`https://api.darksky.net/forecast/d0252a1f2a6dccb9eff129d0be9227ed/${latitude},${longitude}`,
+        url:`https://api.darksky.net/forecast/(PASTE YOUR DARK WEB API KEY HERE)/${latitude},${longitude}`,
         json:true
       
       }, (error, response, body) => {
