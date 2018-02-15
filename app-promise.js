@@ -9,14 +9,25 @@ const argv = yargs
       describe: 'Address to fetch weather for',
       string: true,
       default: 'Lahore, Pakistan'
+    },
+    
+    u: {
+      demand: false,
+      alias: 'unit',
+      string: true,
+      describe: 'Enter Unit C or F',
+      default: 'C'
     }
+
   })
   .help()
   .alias('help', 'h')
   .argv;
 
+  const degreeSymbol = String.fromCharCode(176);
   var encodedAddress = encodeURIComponent(argv.address);
   var geoCodeURI = `http://maps.google.com/maps/api/geocode/json?address=${encodedAddress}`;
+  var unitTemp = argv.u;
 
   axios.get(geoCodeURI).then((response)=>{
     
@@ -36,13 +47,14 @@ const argv = yargs
 
   }).then((res)=>{
 
-    var tempCelcius = (res.data.currently.temperature-32) * 5 / 9;
-    var apparentTempCelcius = (res.data.currently.apparentTemperature-32) * 5 / 9;
     
-    var temp = tempCelcius.toFixed(2);
-    var apparentTemp = apparentTempCelcius.toFixed(2)
-
-    console.log(`Its currently ${temp} Celcius. It feels like ${apparentTemp} Celcius`);
+      var temp = res.data.currently.temperature;
+      var apparentTemp = res.data.currently.apparentTemperature;
+          
+    if(unitTemp === 'C')
+          console.log(`Its currently ${convertToCelsius(temp)}${degreeSymbol}C. It feels like ${convertToCelsius(apparentTemp)}${degreeSymbol}C`);
+    else
+      console.log(`Its currently ${temp}${degreeSymbol}F. It feels like ${apparentTemp}${degreeSymbol}F.`);
 
   }).catch((e)=>{
     if(e.status === '404')
@@ -51,6 +63,12 @@ const argv = yargs
       console.log(e.message);
     });
   
+
+    const convertToCelsius = (temperature)=>{
+      debugger
+      var tempInCelcius = (temperature -32) * 5 / 9;
+      return Math.round(tempInCelcius);
+  }
 
 
    
