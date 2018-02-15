@@ -2,7 +2,7 @@
 Weather app built with Node js to fetch the temperature of your location.
 
 1. Run npm install.
-2. Replace your Dark-Sky API key in app-promise.js file in line 33.
+2. Replace your Dark-Sky API key in app-promise.js file.
 
     var weatherURI = `https://api.darksky.net/forecast/(PASTE YOUR DARK WEB API KEY HERE)/${lat},${lon}`;
     (Without api key it will not work)
